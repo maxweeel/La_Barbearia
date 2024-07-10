@@ -38,7 +38,9 @@ class Home extends StatelessWidget {
          ),
         ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {Navigator.pushNamed(context, 'new_cut');},
+        onPressed: () {
+          Navigator.pushNamed(context, 'new_barber');
+        },
         child: const Icon(Icons.add),
       ),
       
