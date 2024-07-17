@@ -34,8 +34,11 @@ class Home extends StatelessWidget {
           const PopupMenuItem(
             child: Text('Login'),
           ),
-          const PopupMenuItem(
-            child: Text('Registro')
+           PopupMenuItem(
+            child: Text('Registro'),
+            onTap: () {
+              Navigator.pushNamed(context, 'new_account');
+            },
             ),
           ],
          ),

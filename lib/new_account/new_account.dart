@@ -36,11 +36,29 @@ class NewAccount extends StatelessWidget {
             TextFormField(
               obscuringCharacter: "*",
               decoration: const InputDecoration(
+                 border: const OutlineInputBorder(),
                 labelText: 'Senha',
               ),
               validator: (value ){
                 if (value == null || value.trim().isEmpty){
                   return 'O campo precisa ser prenchido';
+                }
+                if (value.length < 5){
+                  return 'A senha tem que ter mais de 5 letras';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16,),
+            TextFormField(
+              obscuringCharacter: "*",
+              decoration: const InputDecoration(
+                 border: OutlineInputBorder(),
+                labelText: 'Confirme Senha',
+              ),
+               validator: (value ){
+                if (value == null || value.trim().isEmpty){
+                  return 'As senhas presisão ser similares';
                 }
                 return null;
               },
