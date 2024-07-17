@@ -32,8 +32,11 @@ class Home extends StatelessWidget {
             child: Text('Adicionar Barbearia'),
           ),
           const PopupMenuItem(
-            child: Text('Login/Registro'),
+            child: Text('Login'),
           ),
+          const PopupMenuItem(
+            child: Text('Registro')
+            ),
           ],
          ),
         ),
@@ -76,7 +79,7 @@ class Home extends StatelessWidget {
                               style: TextStyle(fontSize: 14),
                             ),
                             Text(
-                              'Localização: Rua Exemplo, 123',
+                              'Endereço: Rua Exemplo, 123',
                               style: TextStyle(fontSize: 14),
                             ),
                           ],
@@ -131,7 +134,7 @@ class Home extends StatelessWidget {
                               style: TextStyle(fontSize: 14),
                             ),
                             Text(
-                              'Localização: Av. Teste, 456',
+                              'Endereço: Av. Teste, 456',
                               style: TextStyle(fontSize: 14),
                             ),
                           ],
@@ -186,7 +189,7 @@ class Home extends StatelessWidget {
                               style: TextStyle(fontSize: 14),
                             ),
                             Text(
-                              'Localização: Praça Principal, 789',
+                              'Endereço: Praça Principal, 789',
                               style: TextStyle(fontSize: 14),
                             ),
                           ],

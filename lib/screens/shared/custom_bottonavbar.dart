@@ -10,7 +10,7 @@ class CustomBottonavbar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.person, color: Colors.black), 
-          label: 'Minha Conta',
+          label: 'Perfil',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.notifications_active, color: Colors.black),
