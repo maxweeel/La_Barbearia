@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:la_barbearia/screens/home/custom__dropdown_menu.dart';
 import 'package:la_barbearia/screens/shared/custom_appbar.dart';
 import 'package:flutter/widgets.dart';
+import 'package:la_barbearia/theme.dart';
 
 class NewBarber extends StatelessWidget{
   NewBarber({super.key});
@@ -14,10 +15,6 @@ class NewBarber extends StatelessWidget{
 Widget build(BuildContext context){
     return Scaffold(
       appBar: customAppBar('Nova Barbearia'),
-      floatingActionButton: FloatingActionButton (
-        onPressed: () {},
-        child: const Icon(Icons.save),
-        ),
         body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -69,6 +66,16 @@ Widget build(BuildContext context){
               textCapitalization: TextCapitalization.characters,
               autofocus: true,
             ),
+            const SizedBox(height: 24,),
+            FilledButton(
+              onPressed: (){}, 
+              child: Text('Confirmar Cadastro', ),
+              style: FilledButton.styleFrom(
+                backgroundColor:  Color.fromARGB(255, 0, 58, 250),
+                shape: StadiumBorder(),
+                padding: EdgeInsets.all(20),
+              ),
+             )
           ],
         ),
         ),

@@ -63,6 +63,16 @@ class NewAccount extends StatelessWidget {
                 return null;
               },
             ),
+            const SizedBox(height: 24,),
+            FilledButton(
+              onPressed: (){}, 
+              child: Text('Confirmar Cadastro', ),
+              style: FilledButton.styleFrom(
+                backgroundColor:  Color.fromARGB(255, 0, 58, 250),
+                shape: StadiumBorder(),
+                padding: EdgeInsets.all(20),
+              ),
+             )
           ]
         ),
       ),
