@@ -8,10 +8,7 @@ class NewAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
         appBar: customAppBar('Nova Conta'),
-      floatingActionButton: FloatingActionButton (
-        onPressed: () {},
-        child: const Icon(Icons.save),
-        ),
+     
         body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
