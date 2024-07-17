@@ -8,7 +8,7 @@ class NewBarber extends StatelessWidget{
 @override
 Widget build(BuildContext context){
     return Scaffold(
-      appBar: customAppBar('Nova Entrada'),
+      appBar: customAppBar('Nova Barbearia'),
       floatingActionButton: FloatingActionButton (
         onPressed: () {},
         child: const Icon(Icons.save),
