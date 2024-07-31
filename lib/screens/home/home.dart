@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:la_barbearia/repository/barber.repository.dart';
+import 'package:la_barbearia/screens/home/components/barber_card.dart';
 import 'package:la_barbearia/screens/shared/custom_appbar.dart';
 import 'package:la_barbearia/model/Barber.dart';
 import 'package:la_barbearia/screens/shared/custom_bottonavbar.dart';
+import 'package:la_barbearia/model/soon_barber.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
-
+  
+    @override
+  State<Home> createState() => _HomeState();
+}
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context){
    return Scaffold(
@@ -49,177 +56,65 @@ class Home extends StatelessWidget {
       
    bottomNavigationBar: const CustomBottonavbar(),
 
-      body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: FutureBuilder(
+        future: BarberRepository.findAll(),
+        builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.none || snapshot.connectionState == ConnectionState.waiting){
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } 
+            if(!snapshot.hasData || snapshot.data!.isEmpty){
+             return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Não existem tickets cadastrados!!!'),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  FilledButton(
+                    onPressed: () {
+                      updateScreen();
+                    },
+                    child: const Text('Atualizar'),
+                  ),
+                ],
+              ),
+            );
+          }
+          var listOfBarber = snapshot.data!;
+          return Padding(
+            padding: const EdgeInsets.all(16),
+             child: Column(
             children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/logo1.png',
-                        width: 110,
-                        height: 110,
-                        fit: BoxFit.cover,
-                        ),
-                      SizedBox(width: 9),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Preço: R\$ 30,00',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              'Tempo de espera: 20min',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              'Endereço: Rua Exemplo, 123',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 9),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                             
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                             
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                     'assets.soon2.png'
+                    ),
+                    Text(
+                      "Bachica",
+                       style: Theme.of(context).textTheme.headlineLarge,
+                    )
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: listOfBarber.length,
+                  itemBuilder: (context, index) => BarberCard(barber: listOfBarber[index]),
                 ),
               ),
-              SizedBox(height: 15),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/logo2.png',
-                        width: 110,
-                        height: 110,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(width: 9),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Preço: R\$ 25,00',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              'Tempo de espera: 40 min',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              'Endereço: Av. Teste, 456',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 9),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete),
-                            onPressed: () {
-                            
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(14.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/logo3.png',
-                        width: 110,
-                        height: 110,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(width: 9),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Preço: R\$ 35,00',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              'Tempo de espera: 25 min',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            Text(
-                              'Endereço: Praça Principal, 789',
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                      ),
-                        SizedBox(width: 9),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () {
-                             
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                              
-                },
-               ),
-              ],
-            ),
-           ],
+            ],
           ),
-         ),
-        ),
-        ],
-       ),
-      ),
-     );
+      );
+     },
+    ),
+   );
+  }
+  void updateScreen() {
+    setState(() {});
   }
 }
+

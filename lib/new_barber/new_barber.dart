@@ -1,12 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:la_barbearia/screens/home/custom__dropdown_menu.dart';
+import 'package:la_barbearia/model/soon_barber.dart';
+import 'package:la_barbearia/screens/shared/custom__dropdown_menu.dart';
 import 'package:la_barbearia/screens/shared/custom_appbar.dart';
 import 'package:flutter/widgets.dart';
-import 'package:la_barbearia/theme.dart';
 import 'package:la_barbearia/model/Barber.dart';
 import 'package:la_barbearia/repository/barber.repository.dart';
 
-class NewBarber extends StatelessWidget{
+
+class NewBarber extends StatelessWidget {
   NewBarber({super.key});
 
   final _listOfChairs = List.generate(10, (index) => "Cadeiras ${index + 1}");
@@ -15,14 +18,14 @@ class NewBarber extends StatelessWidget{
   );
   final nameController = TextEditingController();
   final locationController = TextEditingController();
-  final  chairnumberController = TextEditingController();
-  final  priceController = TextEditingController();
+  final chairnumberController = TextEditingController();
+  final priceController = TextEditingController();
 
-@override
-Widget build(BuildContext context){
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar('Nova Barbearia'),
-        body: Padding(
+      body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
@@ -35,7 +38,6 @@ Widget build(BuildContext context){
               textCapitalization: TextCapitalization.characters,
               autofocus: true,
             ),
-           
             const SizedBox(height: 16),
             TextField(
               controller: locationController,
@@ -44,13 +46,12 @@ Widget build(BuildContext context){
                 labelText: 'Endereço',
               ),
             ),
-            
-
             CustomDropdownMenu(
               list: _listOfChairs,
             ),
-            
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             TextField(
               controller: entryTimeController,
               decoration: InputDecoration(
@@ -65,45 +66,48 @@ Widget build(BuildContext context){
                 ),
               ),
               readOnly: true,
-              
             ),
-             const SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               controller: priceController,
               decoration: InputDecoration(
-                 border: const OutlineInputBorder(),
-                 labelText: 'Preços',
+                border: const OutlineInputBorder(),
+                labelText: 'Preços',
               ),
               textCapitalization: TextCapitalization.characters,
               autofocus: true,
             ),
-            const SizedBox(height: 24,),
+            const SizedBox(
+              height: 24,
+            ),
             FilledButton(
-              onPressed: (){
-                 save(context);
-              }, 
-              child: Text('Confirmar Cadastro', ),
+              onPressed: () {
+                save(context);
+              },
+              child: Text(
+                'Confirmar Cadastro',
+              ),
               style: FilledButton.styleFrom(
-                backgroundColor:  Color.fromARGB(255, 0, 58, 250),
+                backgroundColor: Color.fromARGB(255, 0, 58, 250),
                 shape: StadiumBorder(),
                 padding: EdgeInsets.all(20),
               ),
-             )
+            )
           ],
         ),
-        ),
-      );
+      ),
+    );
   }
 
-Future<void> save(BuildContext context) async {
+  Future<void> save(BuildContext context) async {
     try {
       final barber = Barber(
-        name: nameController.text,
-        location: locationController.text,
-        chairnumber: chairnumberController.text,
-        waitingtime: entryTimeController.text,
-        price: priceController.text,
-      );
+          name: nameController.text,
+          location: locationController.text,
+          chairnumber: chairnumberController.text,
+          waitingtime: entryTimeController.text,
+          price: priceController.text,
+          soonBarber: selectBarbarImage());
       final id = await BarberRepository.insert(barber);
       if (id != 0) {
         var snackBar = SnackBar(
@@ -120,7 +124,15 @@ Future<void> save(BuildContext context) async {
       print(error);
     }
   }
+}
 
+SoonBarber selectBarbarImage() {
+  final number = Random().nextInt(3);
+  switch(number){
+    case 1: return SoonBarber.soon1;
+    case 2: return SoonBarber.soon2;
+    default: return SoonBarber.soon3;
+  }
 }
 Future<String> showCustomTimePicker(BuildContext context) async {
   final selectTime = await showTimePicker(

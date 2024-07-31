@@ -9,8 +9,13 @@ class BarberRepository{
 
   static Future<List<Barber>> findAll() async{
     final db = await DbHelper.getConnection();
-    final result = await db.query('tickets');
+    final result = await db.query('barber');
     return result.map((item) => Barber.fromMap(item)).toList();
     
+  }
+
+  static Future<int> delete(int chairnumber) async{
+    final db = await DbHelper.getConnection();
+    return await db.delete('barber', where: 'chairnumber = ?', whereArgs: [chairnumber],);
   }
 }
