@@ -1,10 +1,11 @@
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:la_barbearia/model/soon_barber.dart';
 
 class Barber {
   String name;
   String waitingtime;
-  String price;
+  Double price;
   String location;
   String chairnumber;
   SoonBarber soonBarber;
@@ -24,7 +25,7 @@ class Barber {
         'chairnumber': chairnumber,
         'waitingtime': waitingtime,
         'price': price,
-        'soonBarber': soonBarber,
+        'soonBarber': soonBarber.label,
       };
 
   factory Barber.fromMap(Map<String, Object?> map) {
@@ -33,12 +34,21 @@ class Barber {
       location: map['location'] as String,
       chairnumber: map['chairnumber'] as String,
       waitingtime: map['waitingtime'] as String,
-      price: map['price'] as String,
-      soonBarber: (map['soonBarber'] == "soon1")
-          ? SoonBarber.soon1
-          : (map['soonBarber'] == "soon2")
-              ? SoonBarber.soon2
-              : SoonBarber.soon3,
+      price: map['price'] as Double,
+       soonBarber: _fromLabel(map['soonBarber'] as String),
     );
   }
+    static SoonBarber _fromLabel(String label) {
+    switch (label) {
+      case 'soon1':
+        return SoonBarber.soon1;
+      case 'soon2':
+        return SoonBarber.soon2;
+      case 'soon3':
+        return SoonBarber.soon3;
+      default:
+        throw ArgumentError('Unknown SoonBarber label: $label');
+    }
+  }
+
 }

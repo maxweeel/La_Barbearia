@@ -7,7 +7,7 @@ import 'package:la_barbearia/screens/shared/custom_appbar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:la_barbearia/model/Barber.dart';
 import 'package:la_barbearia/repository/barber.repository.dart';
-
+import 'package:la_barbearia/model/soon_barber.dart';
 
 class NewBarber extends StatelessWidget {
   NewBarber({super.key});
@@ -101,13 +101,15 @@ class NewBarber extends StatelessWidget {
 
   Future<void> save(BuildContext context) async {
     try {
+      final price = priceController.text.trim();
+
       final barber = Barber(
           name: nameController.text,
           location: locationController.text,
           chairnumber: chairnumberController.text,
           waitingtime: entryTimeController.text,
-          price: priceController.text,
-          soonBarber: selectBarbarImage());
+          price: price,
+          soonBarber: selectBarberImage());
       final id = await BarberRepository.insert(barber);
       if (id != 0) {
         var snackBar = SnackBar(
@@ -126,13 +128,10 @@ class NewBarber extends StatelessWidget {
   }
 }
 
-SoonBarber selectBarbarImage() {
-  final number = Random().nextInt(3);
-  switch(number){
-    case 1: return SoonBarber.soon1;
-    case 2: return SoonBarber.soon2;
-    default: return SoonBarber.soon3;
-  }
+SoonBarber selectBarberImage() {
+  final values = SoonBarber.values;
+  final randomIndex = Random().nextInt(values.length);
+  return values[randomIndex]; 
 }
 Future<String> showCustomTimePicker(BuildContext context) async {
   final selectTime = await showTimePicker(
@@ -148,3 +147,4 @@ Future<String> showCustomTimePicker(BuildContext context) async {
 String formatTime(TimeOfDay time) {
   return '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
 }
+
