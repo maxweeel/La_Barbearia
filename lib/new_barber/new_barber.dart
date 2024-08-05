@@ -48,6 +48,7 @@ class NewBarber extends StatelessWidget {
               ),
             ),
             CustomDropdownMenu(
+              controler: chairnumberController,
               list: _listOfChairs,
             ),
             const SizedBox(

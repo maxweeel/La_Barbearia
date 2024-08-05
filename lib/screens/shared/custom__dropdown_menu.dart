@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class CustomDropdownMenu extends StatelessWidget {
   final List<String> list;
+  final TextEditingController controler;
   const CustomDropdownMenu({
     super.key,
     required this.list,
+    required this.controler
   });
 
   @override
@@ -12,6 +14,7 @@ class CustomDropdownMenu extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: DropdownMenu(
+        controller: controler,
         dropdownMenuEntries: list
             .map(
               (item) => DropdownMenuEntry(value: item, label: item),
