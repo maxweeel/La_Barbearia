@@ -32,7 +32,18 @@ class BarberCard extends StatelessWidget {
     }
 
     return Dismissible(
-     
+         onDismissed: (direction){
+        final result = BarberRepository.delete(barber.chairnumber!);
+        print(result);
+      },
+       direction: DismissDirection.endToStart,
+      background: Container(
+        color: Colors.red,
+        child: Align(
+          alignment: Alignment(0.9,0),
+          child: Icon(Icons.delete, color: Colors.white,),
+          ),
+      ),
       key: Key(barber.chairnumber),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -55,25 +66,16 @@ class BarberCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      
-                      Row( //Nome da Barbearia e Localização//
+                      Row( //Numero da Cadeira E Preço do corte//
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  barber.name,
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  barber.location,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
+                          Text(
+                            barber.name,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Text(
+                           barber.location,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
@@ -84,11 +86,11 @@ class BarberCard extends StatelessWidget {
                         children: [
                           Text(
                             'Cadeira: ${barber.chairnumber}',
-                            style: Theme.of(context).textTheme.labelLarge,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Text(
                            'R\$ ${barber.price.toStringAsFixed(2)}',
-                            style: Theme.of(context).textTheme.labelLarge,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),

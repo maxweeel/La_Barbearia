@@ -45,13 +45,13 @@ class _HomeState extends State<Home> {
       body: FutureBuilder<List<Barber>>(
         future: BarberRepository.findAll(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none || snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.none ||
+              snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            print('Nenhuma barbearia encontrada.');
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,14 +70,21 @@ class _HomeState extends State<Home> {
           }
           var listOfBarber = snapshot.data!;
           print('Barbearias encontradas: ${listOfBarber.length}');
-           listOfBarber.forEach((barber) {
-      print('Barbearia encontrada: ${barber.name}, ${barber.location}, ${barber.chairnumber}, ${barber.price}, ${barber.waitingtime}, ${barber.soonBarber}');
-    });
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: ListView.builder(
-              itemCount: listOfBarber.length,
-              itemBuilder: (context, index) => BarberCard(barber: listOfBarber[index]),
+          listOfBarber.forEach((barber) {
+            print(
+                'Barbearia encontrada: ${barber.name}, ${barber.location}, ${barber.chairnumber}, ${barber.price}, ${barber.waitingtime}, ${barber.soonBarber}');
+          });
+          return RefreshIndicator(
+            onRefresh: () async{
+              updateScreen();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: ListView.builder(
+                itemCount: listOfBarber.length,
+                itemBuilder: (context, index) =>
+                    BarberCard(barber: listOfBarber[index]),
+              ),
             ),
           );
         },
@@ -89,4 +96,3 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 }
-
