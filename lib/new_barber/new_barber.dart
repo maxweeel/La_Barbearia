@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -101,14 +102,12 @@ class NewBarber extends StatelessWidget {
 
   Future<void> save(BuildContext context) async {
     try {
-      final price = priceController.text.trim();
-
       final barber = Barber(
           name: nameController.text,
           location: locationController.text,
           chairnumber: chairnumberController.text,
           waitingtime: entryTimeController.text,
-          price: price,
+          price: double.parse(priceController.text),
           soonBarber: selectBarberImage());
       final id = await BarberRepository.insert(barber);
       if (id != 0) {
@@ -127,6 +126,7 @@ class NewBarber extends StatelessWidget {
     }
   }
 }
+
 
 SoonBarber selectBarberImage() {
   final values = SoonBarber.values;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:la_barbearia/model/Barber.dart';
 import 'package:la_barbearia/model/soon_barber.dart';
+import 'package:la_barbearia/repository/barber.repository.dart';
 
 class BarberCard extends StatelessWidget {
   final Barber barber;
@@ -13,7 +14,7 @@ class BarberCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    
-    String getLogoAsset(SoonBarber soonBarber) {
+    String getLogoAsset(SoonBarber soonBarber) { //Seletor Aleatorio de imagnes//
       switch (soonBarber) {
         case SoonBarber.soon1:
           return 'assets/soon1.png'; 
@@ -30,7 +31,8 @@ class BarberCard extends StatelessWidget {
       return price.isNotEmpty ? price : '0.00';
     }
 
-    return Container(
+    return Dismissible(
+     
       key: Key(barber.chairnumber),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -41,8 +43,7 @@ class BarberCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               
-                Container(
+                Container( //Imagem//
                   margin: const EdgeInsets.only(right: 16),
                   child: Image.asset(
                     getLogoAsset(barber.soonBarber),
@@ -50,13 +51,12 @@ class BarberCard extends StatelessWidget {
                     height: 64,
                   ),
                 ),
-              
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       
-                      Row(
+                      Row( //Nome da Barbearia e Localização//
                         children: [
                           Expanded(
                             child: Column(
@@ -79,7 +79,7 @@ class BarberCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       
-                      Row(
+                      Row( //Numero da Cadeira E Preço do corte//
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(

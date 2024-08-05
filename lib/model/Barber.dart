@@ -5,7 +5,7 @@ import 'package:la_barbearia/model/soon_barber.dart';
 class Barber {
   String name;
   String waitingtime;
-  Double price;
+  double price;
   String location;
   String chairnumber;
   SoonBarber soonBarber;
@@ -34,7 +34,7 @@ class Barber {
       location: map['location'] as String,
       chairnumber: map['chairnumber'] as String,
       waitingtime: map['waitingtime'] as String,
-      price: map['price'] as Double,
+      price: map['price'] as double,
        soonBarber: _fromLabel(map['soonBarber'] as String),
     );
   }
